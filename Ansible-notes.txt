@@ -181,11 +181,17 @@ ansible all -i 13.232.255.66, -m service -a"name=httpd state=started" -u ec2-use
 
 wget https://www.devopsschool.com/notes/docker/2019/rajesh-mumbai.pem
 
+        ACS             ARS
+Asha    13.234.34.62    13.233.174.150
+Shiva   13.233.174.150  13.234.34.62
+
+Karthik 13.233.148.129  13.234.118.72
+Mohnish 13.234.118.72   13.233.148.129
+
+Soujanya    15.206.82.13    52.66.197.25
+Nahesh      52.66.197.25    15.206.82.13
 
 
-13.234.34.62
-13.233.174.150
-13.233.148.129
 
 
 
