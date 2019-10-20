@@ -1,0 +1,198 @@
+WHAT IS DEVOPS
+================
+https://www.youtube.com/watch?v=-VaVmb_UOC8
+
+
+What is Ansible?
+-----------------
+    Config mgmt tool.
+    Version
+            CV  - Free - OPEN - CMD ONLINE
+            EV - CV  + Tower(GUI)
+    Written in PYTHON
+    From Redhat
+
+
+What is config mgmt?
+        SERVER(S) config mgmt
+
+What is there in the SERVER?
+
+HARDWARE        -- HYPERVISOR  -- ANSIBLE
+        CPU 
+        RAM
+        STOREGAE
+
+SOFTWARE
+    files       ------  PROPERTY & ACTION
+    dir         ------  PROPERTY & ACTION
+    package     ------  PROPERTY & ACTION
+    services    ------  PROPERTY & ACTION
+    batch       ------  PROPERTY & ACTION
+    bash        ------  PROPERTY & ACTION
+
+
+PEOPLE
+    user        ------  PROPERTY & ACTION
+    groups      ------  PROPERTY & ACTION
+
+
+PROCESS
+    permisson  ------  PROPERTY & ACTION     
+    policy      ------  PROPERTY & ACTION
+
+
+Why Ansible?
+    SERVER(S) mgmt
+    EASY TO 
+            LEARN
+            DEBUG
+            EXTEND
+            SHARE
+            TEST
+
+Compare to java - python - perl -ruby 
+
+Deployment
+    1 deployment  - 10 mins
+    200 deployment - 10 mins
+    ------------------------
+    HOW? Parrel?
+    BUT
+
+    50 RH 50 W 50 U 50 DEB
+    100 NG 100 APACHE
+    50 MYSQL 50 MS 50 OR 50 PS
+    50 TOm 50 JBS 50 W 50 WS
+    100 Project specific config...indepent..
+
+    SHEL - WINDOWS?????????
+    PS - LINUX??????
+
+    CROSS platform??
+    ==============================
+    Ansible
+
+Other - Ansible -> Puppet- > Chef -Salt
+
+Architecture of Ansible
+=======================
+Humen ------> ANSIBLE CONTROL SERVER  -----------> ANSIBLE REMOTE SERVER(S)
+              LINUX 64 BIT                          ANY
+
+                                     HTTP(WINRM)            ARS(WINDOWS)
+                                      SSH                      ARS(Linux)
+
+ANSIBLE CONTROL SERVER COMPONENTS
+===================================
+        MODULE - a unit of work given by Ansible by ANSIBLE
+                ---> Playbook.yaml - by DEV
+                    ----> Config (its behaviour and default options) - Dy Ansible 
+                            =---> ineventory (a file with list of IP address) - By OPS
+
+Ansible Vs Puppet
+=======================
+Python     Vs ruby
+SSH|HTTP    VS TCP CERT
+Redhat        VS Puppet
+Linux friends+++++ VS   Linux friends++++
+=================================
+
+Roles in Ansible?
+
+Dev 
+JAVA DEV......
+
+JDK --> .JAVA           -.CLASS  -----.CLASS(JAR)---> WAR
+        ---DATA TYPES
+        --- OPERATORS
+        --- CONDITIONING
+        --- LOOPPING
+        ---- MODULE
+        ---- CLASSS
+
+Ansible ---> .yaml(Declare) -->.yaml(s) -- Playbook -- Playbooks(role)
+            ---DATA TYPES
+                --- OPERATORS
+                --- CONDITIONING
+                --- LOOPPING
+                ---- MODULE
+                ---- CLASSS
+        
+
+Ops
+WAR --> SERVERS
+role ----> SERVERS
+=============================
+Step 1 - Installing Ansible
+13.234.118.72
+https://www.devopsschool.com/blog/how-to-install-ansible-in-centos-7-rhel-7/
+
+[root@ip-172-31-28-97 ec2-user]# ansible --version
+'ansible 2.8.5
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.5 (default, Feb 20 2018, 09:19:12) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+[root@ip-172-31-28-97 ec2-user]# 
+
+Step 2 - Deploy in Local using ADHOC COMMANDS
+Project - Setup a weberver of DevOpsSchool.com
+    Steps - 
+            1 . Install httpd
+            2. Copy index.html to /var/www/html/index.html
+            3. start a httpd
+
+ansible where which-mdole module-param access esc
+ansible localhost -m yum -a"name=httpd state=present"
+ansible localhost -m file -a"name=index.html state=touch" 
+ansible localhost -m lineinfile -a'path=index.html state=present line="<h1> Welcome to DevOpsSchol.com</h1>"'
+ansible localhost -m copy -a"dest=/var/www/html/index.html src=index.html"
+ansible localhost -m service -a"name=httpd state=started"
+
+Step 3 - Deploy in ADHOC COMMANDS in remote machine
+ACS - 13.234.118.72
+ARS - 13.232.255.66
+
+remote machine SPEC====== list format
+                    May come from 
+                                COMMNAD line
+                                FILE (ineventory)
+                                SCRIPT
+
+
+ansible all -i 13.232.255.66, -m yum -a"name=httpd state=present"
+ansible all -i 13.232.255.66, -m file -a"name=index.html state=touch" 
+ansible all -i 13.232.255.66, -m lineinfile -a'path=index.html state=present line="<h1> Welcome all to DevOpsSchol.com</h1>"'
+ansible all -i 13.232.255.66, -m copy -a"dest=/var/www/html/index.html src=index.html"
+ansible all -i 13.232.255.66, -m service -a"name=httpd state=started"
+
+ansible all -i 13.232.255.66, -m yum -a"name=httpd state=present" -u ec2-user --key-file=rajesh-mumbai.pem -b
+
+ansible all -i 13.232.255.66, -m file -a"name=index.html state=touch" -u ec2-user --key-file=rajesh-mumbai.pem -b 
+
+ansible all -i 13.232.255.66, -m lineinfile -a'path=index.html state=present line="<h1> Welcome all to DevOpsSchol.com</h1>"' -u ec2-user --key-file=rajesh-mumbai.pem -b
+
+ansible all -i 13.232.255.66, -m copy -a"dest=/var/www/html/index.html src=index.html" -u ec2-user --key-file=rajesh-mumbai.pem -b
+
+ansible all -i 13.232.255.66, -m service -a"name=httpd state=started" -u ec2-user --key-file=rajesh-mumbai.pem -b
+
+
+wget https://www.devopsschool.com/notes/docker/2019/rajesh-mumbai.pem
+
+
+
+13.234.34.62
+13.233.174.150
+13.233.148.129
+
+
+
+Step 3 - TOO MANY ADHOC COMMANDS -- USE PLAYBOOK in LOCAL
+
+Step 4 - USE PLAYBOOK in ONE REMOTE
+
+Step 5 - USE PLAYBOOK in MULTIPLE  REMOTE
+
+Step 6 - MULTIOLE PLAYBOOK (ROLES) in MULTIPLE  REMOTE
